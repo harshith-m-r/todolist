@@ -20,3 +20,5 @@ document.addEventListener("keydown", function (e) {
     addTasks();
   }
 });
+
+//js file ends here
