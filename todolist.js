@@ -1,23 +1,23 @@
 // const textValue = document.querySelector(".newText").textContent;
 const clickBtn = document.querySelector(".btn");
-
-const addTasks = function () {
-  const textValue = document.querySelector("input").value; // has to go outside the functio
+const textValue = console.log(document.querySelector(".newText").value);
+function addTask() {
   // console.log(textValue);
-  var container = document.querySelector(".container");
+  // const textValue = document.querySelector(".newText").value; // had to go outside the function
+  var container = document.querySelector(".tasks-container");
   var elem = document.createElement("div");
   elem.setAttribute("class", "show-tasks");
   elem.textContent = textValue;
   container.appendChild(elem);
-  document.querySelector("input").value = "";
-};
+  document.querySelector(".newText").value = "";
+}
 
-clickBtn.addEventListener("click", addTasks);
+clickBtn.addEventListener("click", addTask);
 document.addEventListener("keydown", function (e) {
   // e stands for event
   // console.log('a key was pressed');
   if (e.key === "Enter") {
-    addTasks();
+    addTask();
   }
 });
 
