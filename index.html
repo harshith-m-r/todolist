@@ -21,10 +21,22 @@
   <body>
     <div class="header">To-Do List</div>
 
-    <div class="container">
-      <ul id="box"></ul>
-      <input type="text" class="newText" placeholder="Type here..." />
-      <input type="button" value="Add Task" id="btnClick" class="btn" />
+    <div class="tasks-container">
+      <!-- <ul id="box"></ul> -->
+      <input type="text" class="newText" placeholder="Type here..." /><button
+        class="addBtn"
+      >
+        +
+      </button>
+      <div class="to-dos" id="toDoContainer"></div>
+    </div>
+
+    <div class="footer">
+      <span class="totaltasks">hey 1</span>
+
+      <span class="completedtasks">hey 2</span>
+
+      <span class="pendingtasks">hey 3</span>
     </div>
 
     <script src="/todolist.js"></script>
