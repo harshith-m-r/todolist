@@ -21,50 +21,78 @@
 //   }
 // });
 
-let addToDoButton = document.querySelector(".addBtn");
-let toDoContainer = document.querySelector("#toDoContainer");
-let inputField = document.querySelector(".newText");
-let allTasksCount = 0;
-let completedTasksCount = 0;
-let pendingTaksCount = 0;
-let i = 0;
+(() => {
+  let addToDoButton = document.querySelector(".addBtn");
+  let toDoContainer = document.querySelector(".to-dos");
+  let inputField = document.querySelector(".newText");
+  // let allTasksCount = 0;
+  // let completedTasksCount = 0;
+  // let pendingTaksCount = 0;
+  let i = 0;
+  let taskArray = [];
+  let isComplete = false;
+  let taskName = "";
 
-function createTasks(uniqueId) {
-  var paragraph = document.createElement("p");
-  paragraph.innerText = inputField.value;
-  paragraph.setAttribute("id", uniqueId);
-  // console.log(i);
-  // paragraph.addEventListener("click", () => strikeOff(uniqueId));
+  function createTask() {
+    // call the function createTask not createTask
+    var paragraph = document.createElement("p");
+    paragraph.innerText = inputField.value;
+    taskName = inputField.value;
 
-  // striking off completed tasks
-  paragraph.addEventListener("click", function () {
-    paragraph.style.textDecoration = "line-through";
-    // completedTasksCount += 1;
-    // console.log("Completed tasks count : " + completedTasksCount);
-  });
+    taskArray[i] = [Date.now(), taskName, isComplete];
+    localStorage.setItem("Tasks", JSON.stringify(taskArray));
+    // console.log(taskArray);
 
-  // removing tasks on double click
-  paragraph.addEventListener("dblclick", function () {
-    toDoContainer.removeChild(paragraph);
-  });
+    paragraph.setAttribute("id", taskArray[i][0]);
+    // console.log(i);
+    // paragraph.addEventListener("click", () => strikeOff(uniqueId));    // striking off completed tasks
+    paragraph.addEventListener("click", function () {
+      paragraph.style.textDecoration = "line-through";
+      // taskArray[i][isComplete] = true;
+      // console.log(taskArray);
+      // completedTasksCount += 1;
+      // console.log("Completed tasks count : " + completedTasksCount);
+    });
 
-  toDoContainer.appendChild(paragraph);
-  //onsole.log("Total tasks count : " + ++allTasksCount);
-  // document.querySelector(".taskcounter").value = ++allTasksCount;
-  inputField.value = "";
-  i += 1;
-  document.querySelector(".taskcounter").value =
-    "Total Tasks : " + allTasksCount;
-}
+    // removing tasks on double click
+    // paragraph.addEventListener("dblclick", function () {
+    //   paragraph.style.textDecoration = "none";
+    // });
 
-// function strikeOff(uniqueId) {
-//   var strikeParagraph = document.getElementById(uniqueId);
-//   strikeParagraph.style.textDecoration = "line-through";
-// }
-
-addToDoButton.addEventListener("click", () => createTasks(i));
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    createTasks(i);
+    toDoContainer.appendChild(paragraph);
+    // console.log("Total tasks count : " + ++allTasksCount);
+    // document.querySelector(".taskcounter").value = ++allTasksCount;
+    inputField.value = "";
+    i += 1;
+    // document.querySelector(".taskcounter").value =
+    //   "Total Tasks : " + allTasksCount;
   }
-});
+
+  // function strikeOff(uniqueId) {
+  //   var strikeParagraph = document.getElementById(uniqueId);
+  //   strikeParagraph.style.textDecoration = "line-through";
+  // }
+
+  addToDoButton.addEventListener("click", () => createTask());
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      createTask();
+    }
+  });
+
+  function getDataFromLocalStorage() {
+    let taskData = JSON.parse(localStorage.getItem("Tasks"));
+    console.log(taskData);
+    // displayNewTasks(taskArray);
+  }
+
+  // getDataFromLocalStorage();
+
+  // function displayNewTasks() {
+  //   for (let j = 0; j <= taskArray.length; j++) {
+  //     for (let k = 0; k <= j; k++) {
+  //       console.log(taskArray[j][k]);
+  //     }
+  //   }
+  // }
+})();
