@@ -48,7 +48,8 @@
     // paragraph.addEventListener("click", () => strikeOff(uniqueId));    // striking off completed tasks
     paragraph.addEventListener("click", function () {
       paragraph.style.textDecoration = "line-through";
-      taskArray[isComplete] = true;
+      // taskArray[i][isComplete] = true;
+      // console.log(taskArray);
       // completedTasksCount += 1;
       // console.log("Completed tasks count : " + completedTasksCount);
     });
@@ -85,13 +86,13 @@
     // displayNewTasks(taskArray);
   }
 
-  getDataFromLocalStorage();
+  // getDataFromLocalStorage();
 
-  function displayNewTasks() {
-    for (let j = 0; j <= taskArray.length; j++) {
-      for (let k = 0; k <= j; k++) {
-        console.log(taskArray[j][k]);
-      }
-    }
-  }
+  // function displayNewTasks() {
+  //   for (let j = 0; j <= taskArray.length; j++) {
+  //     for (let k = 0; k <= j; k++) {
+  //       console.log(taskArray[j][k]);
+  //     }
+  //   }
+  // }
 })();
