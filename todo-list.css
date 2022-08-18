@@ -1,7 +1,7 @@
 html,
 body {
   background-color: turquoise;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   /* width: 50%; */
   margin: 0 auto;
 }
@@ -9,7 +9,7 @@ body {
 .header {
   overflow: hidden;
   float: left;
-  font-family: "DynaPuff", cursive;
+  font-family: 'DynaPuff', cursive;
   font-size: 32px;
   text-align: center;
   /* padding: 5% 90%; */
