@@ -27,7 +27,7 @@
       alert('please enter something.!');
       return;
     }
-    var paragraph = document.createElement('p');
+    const paragraph = document.createElement('p');
     paragraph.innerText = domElems.inputField.value;
     taskName = domElems.inputField.value;
 
@@ -87,7 +87,7 @@
     displayTasks(taskData);
     // }
   }
-  let dispBtn = document.querySelector('.displayTasks');
+  const dispBtn = document.querySelector('.displayTasks');
   dispBtn.addEventListener('click', getDataFromLocalStorage);
 
   function displayTasks(taskData) {
@@ -106,7 +106,7 @@
         if (taskData.hasOwnProperty.call(taskData, key)) {
           // const element = taskData[key];
           // console.log(element);
-          let taskDisplay = document.querySelector('.dispTask');
+          const taskDisplay = document.querySelector('.dispTask');
           dispTask = document.createElement('div');
           dispTask.innerText = taskData[key].taskName;
           taskDisplay.append(dispTask);
