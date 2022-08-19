@@ -24,7 +24,7 @@
       isComplete: false,
     };
 
-    localStorage.setItem(`Tasks`, JSON.stringify(taskObj));
+    localStorage.setItem('Tasks', JSON.stringify(taskObj));
     // localStorage.setItem('ids', JSON.stringify(idArray));
     // console.log(taskArray);
 
