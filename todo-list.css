@@ -1,7 +1,7 @@
 html,
 body {
   background-color: turquoise;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   /* width: 50%; */
   margin: 0 auto;
 }
@@ -9,7 +9,7 @@ body {
 .header {
   overflow: hidden;
   float: left;
-  font-family: "DynaPuff", cursive;
+  font-family: 'DynaPuff', cursive;
   font-size: 32px;
   text-align: center;
   /* padding: 5% 90%; */
@@ -74,10 +74,31 @@ body {
   color: #fff;
 }
 
-span {
+/* span {
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+} */
+
+/* .Tasks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid gray;
+  background-color: #ebebeb;
+  color: #2f2f2f;
+  border-radius: 15px;
 }
+
+.Tasks div {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.Tasks div * {
+  margin: 5px;
+} */
