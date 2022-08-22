@@ -21,21 +21,25 @@
   <body>
     <div class="header">To-Do List</div>
 
-    <div class="tasks-container">
+    <span class="tasks-container">
       <!-- <ul id="box"></ul> -->
-      <input type="text" class="newText" placeholder="Type here..." /><button
-        class="addBtn"
-      >
-        +
-      </button>
-      <div class="to-dos"></div>
+      <input type="text" class="newText" placeholder="Type here..." />
+      <button class="addBtn">+</button>
+      <span class="to-dos"></span>
+    </span>
 
-      <button class="displayTasks">Display Tasks</button>
+    <div>
+      <span>
+        <button class="displayTasks">Display Tasks</button>
+        <button class="clearLocalStorage">Clear Local Storage</button>
+      </span>
     </div>
 
-    <div class="dispTask"></div>
+    <div>
+      <div class="dispTask"></div>
+    </div>
 
-    <div class="footer"></div>
+    <!-- <div class="footer"></div> -->
 
     <script src="/todolist.js"></script>
   </body>

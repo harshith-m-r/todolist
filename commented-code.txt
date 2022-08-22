@@ -46,3 +46,10 @@
   //   strikeParagraph.style.textDecoration = "line-through";
 
 -------------------------------------------------------------------------------------
+
+      // taskKeys.forEach((key) => {
+      // let taskDisplay = document.querySelector('.dispTask');
+      // dispTask = document.createElement('div');
+      // dispTask.innerText = taskData[key].taskName;
+      // taskDisplay.append(dispTask);
+      // });

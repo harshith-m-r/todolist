@@ -15,6 +15,14 @@
       paragraph.innerText = domElems.inputField.value;
       taskName = domElems.inputField.value;
 
+      const delTaskBtn = document.createElement('button');
+      delTaskBtn.innerHTML = 'Delete';
+      delTaskBtn.addEventListener('click', function () {
+        // localStorage.removeItem();
+        domElems.toDoContainer.removeChild(paragraph);
+        domElems.toDoContainer.removeChild(delTaskBtn);
+      });
+
       taskObj[Date.now()] = {
         id: Date.now(),
         taskName: taskName,
@@ -29,6 +37,7 @@
       });
 
       domElems.toDoContainer.appendChild(paragraph);
+      domElems.toDoContainer.appendChild(delTaskBtn);
       domElems.inputField.value = '';
       // i += 1;
     } else {
@@ -38,6 +47,7 @@
   }
 
   domElems.addToDoButton.addEventListener('click', createTask);
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       createTask();
@@ -50,8 +60,17 @@
     displayTasks(taskData);
     // }
   }
+
   const dispBtn = document.querySelector('.displayTasks');
   dispBtn.addEventListener('click', getDataFromLocalStorage);
+
+  const clearLocalStorage = document.querySelector('.clearLocalStorage');
+  clearLocalStorage.addEventListener('click', clrLocalStorage);
+
+  function clrLocalStorage() {
+    localStorage.clear();
+    location.reload(true);
+  }
 
   function displayTasks(taskData) {
     if (taskData) {
@@ -66,14 +85,10 @@
         }
       }
     } else {
-      // taskKeys.forEach((key) => {
-      // let taskDisplay = document.querySelector('.dispTask');
-      // dispTask = document.createElement('div');
-      // dispTask.innerText = taskData[key].taskName;
-      // taskDisplay.append(dispTask);
-      // });
       alert('The local storage is empty');
       return;
     }
   }
+
+  function delTaskFunc() {}
 })();
