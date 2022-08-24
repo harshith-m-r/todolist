@@ -5,31 +5,46 @@
   const domElems = {
     checkBox: app.querySelector('checkBox'),
     addToDoButton: app.querySelector('.addBtn'),
-    toDoContainer: app.querySelector('.to-dos'),
+    // toDoContainer: app.querySelector('.to-dos'),
+    toDoContainer: app.querySelector('.tasks-container'),
     inputField: app.querySelector('.newText'),
   };
 
   let taskName = '';
 
-  function delTask(delPara, delBtn) {
+  function delTask(delPara, delBtn, chkBox) {
     domElems.toDoContainer.removeChild(delPara);
     domElems.toDoContainer.removeChild(delBtn);
+    domElems.toDoContainer.removeChild(chkBox);
+  }
+
+  function strike(strikePara, chkBox) {
+    strikePara.style.textDecoration = 'line-through';
+    chkBox.addEventListener('click', () => destrike(strikePara, chkBox));
+  }
+
+  function destrike(destrikePara, chkBox) {
+    destrikePara.style.textDecoration = 'none';
+    chkBox.addEventListener('click', () => strike(destrikePara, chkBox));
   }
 
   function createTask() {
     if (domElems.inputField.value) {
-      // const checkBox = document.createElement('input');
-      // checkBox.setAttribute('type', 'checkbox');
-
       const paragraph = document.createElement('p');
       paragraph.innerText = domElems.inputField.value;
       taskName = domElems.inputField.value;
+      // paragraph.addEventListener('click', strike(paragraph));
 
       const delTaskBtn = document.createElement('button');
       delTaskBtn.innerHTML = 'Delete';
       delTaskBtn.addEventListener('click', () =>
-        delTask(paragraph, delTaskBtn)
+        delTask(paragraph, delTaskBtn, checkBox)
       );
+
+      const checkBox = document.createElement('input');
+      checkBox.setAttribute('type', 'checkbox');
+      checkBox.addEventListener('click', () => strike(paragraph, checkBox));
+      // checkBox.setAttribute('class', '');
 
       let randomId = Date.now();
       taskObj[randomId] = {
@@ -40,13 +55,13 @@
 
       localStorage.setItem('Tasks', JSON.stringify(taskObj));
 
-      paragraph.addEventListener('click', function () {
-        paragraph.style.textDecoration = 'line-through';
-      });
+      // paragraph.addEventListener('click', function () {
+      //   paragraph.style.textDecoration = 'line-through';
+      // });
 
-      // domElems.toDoContainer.appendChild(checkBox);
       domElems.toDoContainer.appendChild(paragraph);
       domElems.toDoContainer.appendChild(delTaskBtn);
+      domElems.toDoContainer.appendChild(checkBox);
       domElems.inputField.value = '';
       // i += 1;
     } else {
