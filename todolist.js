@@ -1,142 +1,124 @@
 (() => {
-  // let totalTasks = 0;
-  // let completedTasks = 0;
-  // let pendingTasks = 0;
   const taskObj = {};
   let taskName = '';
   const app = document.querySelector('.app');
 
   const domElems = {
-    checkBox: app.querySelector('checkBox'),
+    checkBox: app.querySelector('.checkBox'),
     addToDoButton: app.querySelector('.addBtn'),
-    // toDoContainer: app.querySelector('.to-dos'),
     toDoContainer: app.querySelector('.tasks-container'),
     inputField: app.querySelector('.newText'),
     countersContainer: app.querySelector('.counters-container'),
+    dispBtn: app.querySelector('.displayTasks'),
+    clearLocalStorage: app.querySelector('.clearLocalStorage'),
   };
 
   function updateLocalStorage() {
     localStorage.setItem('Tasks', JSON.stringify(taskObj));
   }
 
-  function delTask(delPara, delBtn, chkBox, paraId) {
-    domElems.toDoContainer.removeChild(delPara);
-    domElems.toDoContainer.removeChild(delBtn);
-    domElems.toDoContainer.removeChild(chkBox);
-    delete taskObj[paraId];
+  function removeTaskItem(item) {
+    domElems.toDoContainer.removeChild(item);
+  }
+
+  function delTask(delDiv, divId) {
+    removeTaskItem(delDiv);
+    delete taskObj[divId];
     updateLocalStorage();
   }
 
-  function strike(strikePara, chkBox, paraId) {
-    strikePara.style.textDecoration = 'line-through';
-    taskObj[paraId].isComplete = true;
+  function updateOnCheckBoxClick(para, divId, textStyle, status) {
+    para.style.textDecoration = textStyle;
+    taskObj[divId].isComplete = status;
     updateLocalStorage();
-    chkBox.addEventListener('click', () =>
-      destrike(strikePara, chkBox, paraId)
-    );
   }
 
-  function destrike(destrikePara, chkBox, paraId) {
-    destrikePara.style.textDecoration = 'none';
-    taskObj[paraId].isComplete = false;
-    updateLocalStorage();
-    chkBox.addEventListener('click', () =>
-      strike(destrikePara, chkBox, paraId)
-    );
+  function strike(strikePara, chkBox, divId) {
+    updateOnCheckBoxClick(strikePara, divId, 'line-through', true);
+    chkBox.addEventListener('click', () => destrike(strikePara, chkBox, divId));
   }
 
-  // function buildTaskSection() {
-  //   if (domElems.inputField.value) {
-  //     const paragraph = document.createElement('p');
-  //     paragraph.innerText = domElems.inputField.value;
-  //     taskName = domElems.inputField.value;
-  //     paragraph.setAttribute('id', randomId);
+  function destrike(destrikePara, chkBox, divId) {
+    updateOnCheckBoxClick(destrikePara, divId, 'none', false);
+    chkBox.addEventListener('click', () => strike(destrikePara, chkBox, divId));
+  }
 
-  //     const delTaskBtn = document.createElement('button');
-  //     delTaskBtn.innerHTML = 'Delete';
-  //     delTaskBtn.addEventListener('click', () =>
-  //       delTask(paragraph, delTaskBtn, checkBox, paragraph.id)
-  //     );
+  function createElem(elem) {
+    return document.createElement(elem);
+  }
 
-  //     const checkBox = document.createElement('input');
-  //     checkBox.setAttribute('type', 'checkbox');
-  //     checkBox.addEventListener('click', () =>
-  //       strike(paragraph, checkBox, paragraph.id)
-  //     );
+  function setAttrs(elem, attr, val) {
+    return elem.setAttribute(`${attr}`, `${val}`);
+  }
 
-  //     domElems.toDoContainer.appendChild(paragraph);
-  //     domElems.toDoContainer.appendChild(delTaskBtn);
-  //     domElems.toDoContainer.appendChild(checkBox);
-  //   }
-  // }
+  function pushToDom(whereTo, elem) {
+    return whereTo.appendChild(elem);
+  }
 
-  // function buildLocalObject() {
-  //   const randomId = Date.now();
-  //   taskObj[randomId] = {
-  //     id: randomId,
-  //     taskName: domElems.inputField.value,
-  //     isComplete: false,
-  //   };
-  //   updateLocalStorage();
-  // }
+  function clrInputField() {
+    domElems.inputField.value = '';
+  }
+
+  function addEventListeners(elem, eventType, functionToCall) {
+    return elem.addEventListener(eventType, functionToCall);
+  }
+
+  function buildTaskSection(randId) {
+    if (domElems.inputField.value) {
+      const newTaskDiv = createElem('div');
+      setAttrs(newTaskDiv, 'id', randId);
+
+      const paragraph = createElem('p');
+      paragraph.innerText = domElems.inputField.value;
+      taskName = domElems.inputField.value;
+
+      const delTaskBtn = createElem('button');
+      delTaskBtn.innerHTML = 'Delete';
+      addEventListeners(delTaskBtn, 'click', () =>
+        delTask(newTaskDiv, newTaskDiv.id)
+      );
+
+      const checkBox = createElem('input');
+      setAttrs(checkBox, 'type', 'checkbox');
+      addEventListeners(delTaskBtn, 'click', () =>
+        strike(paragraph, checkBox, newTaskDiv.id)
+      );
+
+      pushToDom(newTaskDiv, paragraph);
+      pushToDom(newTaskDiv, delTaskBtn);
+      pushToDom(newTaskDiv, checkBox);
+      pushToDom(domElems.toDoContainer, newTaskDiv);
+      clrInputField();
+    }
+  }
+
+  function buildLocalObject(randId, task) {
+    taskObj[randId] = {
+      id: randId,
+      taskName: task,
+      isComplete: false,
+    };
+  }
 
   function createTask() {
     if (domElems.inputField.value) {
-      const paragraph = document.createElement('p');
-      paragraph.innerText = domElems.inputField.value;
-      taskName = domElems.inputField.value;
-      paragraph.setAttribute('id', randomId);
-
       const randomId = Date.now();
-      taskObj[randomId] = {
-        id: randomId,
-        taskName: taskName,
-        isComplete: false,
-      };
+      task = domElems.inputField.value;
+
+      buildTaskSection(randomId);
+      buildLocalObject(randomId, task);
       updateLocalStorage();
-
-      const delTaskBtn = document.createElement('button');
-      delTaskBtn.innerHTML = 'Delete';
-      delTaskBtn.addEventListener('click', () =>
-        delTask(paragraph, delTaskBtn, checkBox, paragraph.id)
-      );
-
-      const checkBox = document.createElement('input');
-      checkBox.setAttribute('type', 'checkbox');
-      checkBox.addEventListener('click', () =>
-        strike(paragraph, checkBox, paragraph.id)
-      );
-
-      // paragraph.addEventListener('click', function () {
-      //   paragraph.style.textDecoration = 'line-through';
-      // });
-
-      domElems.toDoContainer.appendChild(paragraph);
-      domElems.toDoContainer.appendChild(delTaskBtn);
-      domElems.toDoContainer.appendChild(checkBox);
-      domElems.inputField.value = '';
-
-      totalTasks++;
-      // console.log(
-      //   `Total tasks : ${totalTasks} Pending Tasks : ${pendingTasks} Completed Tasks : ${completedTasks}`
-      // );
-      // i += 1;
     } else {
       alert('please enter something.!');
       return;
     }
   }
 
-  app.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      createTask();
-    }
-  });
-
-  // function getDataFromLocalStorage() {
-  //   displayTasks(taskObj);
-  //   // }
-  // }
+  function getDataFromLocalStorage() {
+    const taskData = JSON.parse(localStorage.getItem('Tasks'));
+    displayTasks(taskData);
+    // }
+  }
 
   function clrLocalStorage() {
     localStorage.clear();
@@ -145,14 +127,14 @@
     domElems.toDoContainer.textContent = '';
   }
 
-  function displayTasks(taskObj) {
-    // console.log(Object.keys(taskObj));
-    if (taskObj) {
-      for (const key in taskObj) {
-        if (taskObj.hasOwnProperty.call(taskObj, key)) {
+  function displayTasks(taskData) {
+    // console.log(Object.keys(taskData));
+    if (taskData) {
+      for (const key in taskData) {
+        if (taskData.hasOwnProperty.call(taskData, key)) {
           const taskDisplay = document.querySelector('.dispTask');
           dispTask = document.createElement('div');
-          dispTask.innerText = taskObj[key].taskName;
+          dispTask.innerText = taskData[key].taskName;
           taskDisplay.append(dispTask);
         }
       }
@@ -162,11 +144,17 @@
     }
   }
 
-  domElems.addToDoButton.addEventListener('click', createTask);
+  function addEventInit() {
+    domElems.addToDoButton.addEventListener('click', createTask);
+    app.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        createTask();
+      }
+    });
+  }
 
-  const dispBtn = document.querySelector('.displayTasks');
-  dispBtn.addEventListener('click', displayTasks);
+  addEventListeners(domElems.dispBtn, 'click', getDataFromLocalStorage);
+  addEventListeners(domElems.clearLocalStorage, 'click', clrLocalStorage);
 
-  const clearLocalStorage = document.querySelector('.clearLocalStorage');
-  clearLocalStorage.addEventListener('click', clrLocalStorage);
+  addEventInit();
 })();
