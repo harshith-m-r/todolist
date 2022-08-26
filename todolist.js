@@ -1,6 +1,5 @@
 (() => {
   const taskObj = {};
-  let taskName = '';
   const app = document.querySelector('.app');
 
   const domElems = {
@@ -70,7 +69,6 @@
 
       const paragraph = createElem('p');
       paragraph.innerText = domElems.inputField.value;
-      taskName = domElems.inputField.value;
 
       const delTaskBtn = createElem('button');
       delTaskBtn.innerHTML = 'Delete';
@@ -80,7 +78,7 @@
 
       const checkBox = createElem('input');
       setAttrs(checkBox, 'type', 'checkbox');
-      addEventListeners(delTaskBtn, 'click', () =>
+      addEventListeners(checkBox, 'click', () =>
         strike(paragraph, checkBox, newTaskDiv.id)
       );
 
@@ -132,7 +130,7 @@
     if (taskData) {
       for (const key in taskData) {
         if (taskData.hasOwnProperty.call(taskData, key)) {
-          const taskDisplay = document.querySelector('.dispTask');
+          const taskDisplay = app.querySelector('.dispTask');
           dispTask = document.createElement('div');
           dispTask.innerText = taskData[key].taskName;
           taskDisplay.append(dispTask);
