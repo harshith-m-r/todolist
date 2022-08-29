@@ -1,3 +1,8 @@
+import './manageStorage';
+import './taskDeletion';
+import './modifyTask';
+import './addEvnetListeners';
+
 (() => {
   const taskObj = {};
   const app = document.querySelector('.app');
@@ -12,36 +17,6 @@
     clearLocalStorage: app.querySelector('.clearLocalStorage'),
   };
 
-  function updateLocalStorage() {
-    localStorage.setItem('Tasks', JSON.stringify(taskObj));
-  }
-
-  function removeTaskItem(item) {
-    domElems.toDoContainer.removeChild(item);
-  }
-
-  function delTask(delDiv, divId) {
-    removeTaskItem(delDiv);
-    delete taskObj[divId];
-    updateLocalStorage();
-  }
-
-  function updateOnCheckBoxClick(para, divId, textStyle, status) {
-    para.style.textDecoration = textStyle;
-    taskObj[divId].isComplete = status;
-    updateLocalStorage();
-  }
-
-  function strike(strikePara, chkBox, divId) {
-    updateOnCheckBoxClick(strikePara, divId, 'line-through', true);
-    chkBox.addEventListener('click', () => destrike(strikePara, chkBox, divId));
-  }
-
-  function destrike(destrikePara, chkBox, divId) {
-    updateOnCheckBoxClick(destrikePara, divId, 'none', false);
-    chkBox.addEventListener('click', () => strike(destrikePara, chkBox, divId));
-  }
-
   function createElem(elem) {
     return document.createElement(elem);
   }
@@ -52,14 +27,6 @@
 
   function pushToDom(whereTo, elem) {
     return whereTo.appendChild(elem);
-  }
-
-  function clrInputField() {
-    domElems.inputField.value = '';
-  }
-
-  function addEventListeners(elem, eventType, functionToCall) {
-    return elem.addEventListener(eventType, functionToCall);
   }
 
   function buildTaskSection(randId) {
@@ -112,19 +79,6 @@
     }
   }
 
-  function getDataFromLocalStorage() {
-    const taskData = JSON.parse(localStorage.getItem('Tasks'));
-    displayTasks(taskData);
-    // }
-  }
-
-  function clrLocalStorage() {
-    localStorage.clear();
-    let clearDispData = app.querySelector('.dispTask');
-    clearDispData.innerText = '';
-    domElems.toDoContainer.textContent = '';
-  }
-
   function displayTasks(taskData) {
     // console.log(Object.keys(taskData));
     if (taskData) {
@@ -140,15 +94,6 @@
       alert('The local storage is empty');
       return;
     }
-  }
-
-  function addEventInit() {
-    domElems.addToDoButton.addEventListener('click', createTask);
-    app.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        createTask();
-      }
-    });
   }
 
   addEventListeners(domElems.dispBtn, 'click', getDataFromLocalStorage);
