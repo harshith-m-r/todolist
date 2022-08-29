@@ -1,7 +1,19 @@
-import './manageStorage';
-import './taskDeletion';
-import './modifyTask';
-import './addEvnetListeners';
+import {
+  updateLocalStorage,
+  getDataFromLocalStorage,
+  clrLocalStorage,
+} from './manageStorage';
+import {
+  updateLocalStorage,
+  getDataFromLocalStorage,
+  clrLocalStorage,
+} from './taskDeletion';
+import {
+  updateLocalStorage,
+  getDataFromLocalStorage,
+  clrLocalStorage,
+} from './modifyTask';
+import { addEventInit, addEventListeners } from './addEvnetListeners';
 
 (() => {
   const taskObj = {};
