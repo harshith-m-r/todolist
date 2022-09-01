@@ -1,17 +1,14 @@
-function updateLocalStorage() {
+import { taskObj, clearDisplayedData } from './todolist.js';
+
+export function updateDataInLocalStorage() {
   localStorage.setItem('Tasks', JSON.stringify(taskObj));
 }
-function getDataFromLocalStorage() {
-  const taskData = JSON.parse(localStorage.getItem('Tasks'));
-  displayTasks(taskData);
-  // }
+
+export function getDataFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('Tasks'));
 }
 
-function clrLocalStorage() {
+export function clrLocalStorage() {
   localStorage.clear();
-  let clearDispData = app.querySelector('.dispTask');
-  clearDispData.innerText = '';
-  domElems.toDoContainer.textContent = '';
+  clearDisplayedData();
 }
-
-export { updateLocalStorage, getDataFromLocalStorage, clrLocalStorage };
