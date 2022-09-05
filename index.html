@@ -21,22 +21,41 @@
   <body>
     <div class="header">To-Do List</div>
 
-    <div class="tasks-container">
-      <!-- <ul id="box"></ul> -->
-      <input type="text" class="newText" placeholder="Type here..." /><button
-        class="addBtn"
-      >
-        +
-      </button>
-      <div class="to-dos"></div>
+    <div class="app">
+      <input type="text" class="newText" placeholder="Type here..." />
+      <button class="addBtn">+</button>
 
-      <button class="displayTasks">Display Tasks</button>
+      <div class="tasks-container">
+        <!-- <ul id="box"></ul> -->
+      </div>
+
+      <div>
+        <span>
+          <button class="displayTasks">Display Tasks</button>
+          <button class="clearLocalStorage">Clear Local Storage</button>
+        </span>
+      </div>
+
+      <div>
+        <div class="dispTask"></div>
+      </div>
+
+      <!-- <div class="counters-container">
+        Completed tasks :
+        <span class="completed-count"></span>
+        <br />
+        Total tasks :
+        <span class="total-count"></span>
+        <br />
+        Pending tasks :
+        <span class="pending-count"></span>
+      </div> -->
     </div>
 
-    <div class="dispTask"></div>
+    <!-- <div class="footer"></div> -->
 
-    <div class="footer"></div>
-
-    <script src="/todolist.js"></script>
+    <script type="module" src="/view.js"></script>
+    <script type="module" src="/manageStorage.js"></script>
+    <script type="module" src="/interface.js"></script>
   </body>
 </html>
