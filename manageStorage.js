@@ -1,14 +1,14 @@
-import { taskObj, clearDisplayedData } from './todolist.js';
+import { taskObj, clearDisplayedData } from './view.js';
 
-export function updateDataInLocalStorage() {
+export function updateDataInStorage() {
   localStorage.setItem('Tasks', JSON.stringify(taskObj));
 }
 
-export function getDataFromLocalStorage() {
+export function getDataFromStorage() {
   return JSON.parse(localStorage.getItem('Tasks'));
 }
 
-export function clrLocalStorage() {
+export function clrStorage() {
   localStorage.clear();
   clearDisplayedData();
 }
