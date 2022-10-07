@@ -4,14 +4,17 @@ import {
   clrStorage,
 } from './manageStorage.js';
 
-export function updateDataInLocalStorage() {
-  updateDataInStorage();
+import { clearDisplayedData } from './view.js';
+
+export function updateData(key, data) {
+  updateDataInStorage(key, data);
 }
 
-export function getDataFromLocalStorage() {
+export function getData() {
   getDataFromStorage();
 }
 
-export function clrLocalStorage() {
+export function clearStorage() {
   clrStorage();
+  clearDisplayedData();
 }

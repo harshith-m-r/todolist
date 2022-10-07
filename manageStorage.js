@@ -1,14 +1,11 @@
-import { taskObj, clearDisplayedData } from './view.js';
-
-export function updateDataInStorage() {
-  localStorage.setItem('Tasks', JSON.stringify(taskObj));
+export function updateDataInStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
 }
 
-export function getDataFromStorage() {
-  return JSON.parse(localStorage.getItem('Tasks'));
+export function getDataFromStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
 }
 
 export function clrStorage() {
   localStorage.clear();
-  clearDisplayedData();
 }

@@ -1,11 +1,8 @@
-import {
-  getDataFromLocalStorage,
-  updateDataInLocalStorage,
-  clrLocalStorage,
-} from './interface.js';
+import { getData, updateData, clearStorage } from './interface.js';
 
 // (() => {
 const taskObj = {};
+const storageKey = 'Tasks';
 
 // let totalTaskCount = 0;
 // let completedTaskCount = 0;
@@ -20,7 +17,7 @@ const domElems = {
   inputField: app.querySelector('.newText'),
   countersContainer: app.querySelector('.counters-container'),
   dispBtn: app.querySelector('.displayTasks'),
-  clearLocalStorage: app.querySelector('.clearLocalStorage'),
+  clearStorage: app.querySelector('.clearStorage'),
 };
 
 function updateCountersInDom(clsName, taskCount) {
@@ -53,7 +50,7 @@ function appendToDom(whereTo, elem) {
 function updateOnCheckBoxClick(para, divId, textStyle, status) {
   para.style.textDecoration = textStyle;
   taskObj[divId].isComplete = status;
-  updateDataInLocalStorage();
+  updateData(storageKey, taskObj);
 }
 
 function strike(strikePara, chkBox, divId) {
@@ -78,7 +75,7 @@ function removeTaskItem(item) {
 function delTask(delDiv, divId) {
   removeTaskItem(delDiv);
   delete taskObj[divId];
-  updateDataInLocalStorage();
+  updateData(storageKey, taskObj);
 }
 
 function createTaskSection(randId, task) {
@@ -122,14 +119,15 @@ function createTask() {
 
     createTaskSection(randomId, task);
     createLocalObject(randomId, task);
-    updateDataInLocalStorage();
+
+    updateData(storageKey, taskObj);
   } else {
     alert('please enter something.!');
   }
 }
 
 function displayTasks() {
-  const taskData = getDataFromLocalStorage();
+  const taskData = getData();
   if (taskData) {
     for (const key in taskData) {
       if (taskData.hasOwnProperty.call(taskData, key)) {
@@ -153,17 +151,17 @@ function addOnClickOrOnEnter() {
   });
 }
 
-// function incremenetTaskCount(taskCount) {
-//   return taskCount;
-// }
+function incremenetTaskCount(taskCount) {
+  return taskCount + 1;
+}
 
-// function decrementTaskCount(taskCount) {
-//   return taskCount;
-// }s
+function decrementTaskCount(taskCount) {
+  return taskCount - 1;
+}
 
 addingEventListener(domElems.dispBtn, 'click', displayTasks);
-addingEventListener(domElems.clearLocalStorage, 'click', clrLocalStorage);
+addingEventListener(domElems.clearStorage, 'click', clearStorage);
 
 addOnClickOrOnEnter();
 // })();
-export { taskObj, clearDisplayedData };
+export { clearDisplayedData };
